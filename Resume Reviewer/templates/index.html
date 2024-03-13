@@ -1,0 +1,82 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RESUME REVIEWER</title>
+    <style>
+        body {
+            background-image: url('/static/img/Bg_cover.jpg');
+            background-size: cover;
+            background-position: center top;   
+            font-family: Arial, sans-serif;
+            color: #333; 
+        }
+
+        .response-container {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            max-width: 600px; 
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .response-title {
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+
+        .response-content {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>RESUME REVIEWER</h1>
+    <form id="upload-form" action="/" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".pdf">
+        <input type="submit" value="Upload">
+    </form>
+
+    <div id="response-container" class="response-container">
+        <h2 id="response-title" class="response-title">Review:</h2>
+        <p id="response-content" class="response-content">{{ chatgpt_response | safe }}</p>
+    </div>
+
+    <script>
+        document.getElementById('upload-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(this);
+
+            fetch('/', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                displayChatGPTResponse(data.chatgpt_response);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+
+        function displayChatGPTResponse(response) {
+            const responseContainer = document.getElementById('response-container');
+            const responseTitle = document.getElementById('response-title');
+            const responseContent = document.getElementById('response-content');
+
+            responseContent.innerHTML = response;
+
+            responseContainer.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
