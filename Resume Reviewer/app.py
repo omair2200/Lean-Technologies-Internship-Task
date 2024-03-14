@@ -16,14 +16,14 @@ client = OpenAI(
     api_key=os.environ.get("OPENAI_API_KEY"),
 )
 
-def convert_pdf_to_text(pdf_content, text_path):
-    with io.BytesIO(pdf_content) as pdf_file:
+def convert_pdf_to_text(resume, text_path):
+    with io.BytesIO(resume) as pdf_file:
         text = extract_text(pdf_file)
         with open(text_path, 'w', encoding='utf-8') as text_file:
             text_file.write(text)
 
-def get_chatgpt_response(pdf_content, target_profile):
-    text_content = extract_text(io.BytesIO(pdf_content))
+def get_review(resume, target_profile):
+    text_content = extract_text(io.BytesIO(resume))
     chat_completion = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
@@ -41,7 +41,7 @@ def get_chatgpt_response(pdf_content, target_profile):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    chatgpt_response = None
+    review = None
 
     if request.method == 'POST':
         uploaded_file = request.files.get('file')
@@ -56,13 +56,13 @@ def index():
             if file_ext not in app.config['UPLOAD_EXTENSIONS']:
                 abort(400, 'Invalid file extension')
 
-            pdf_content = uploaded_file.read()
+            resume = uploaded_file.read()
 
-            chatgpt_response = get_chatgpt_response(pdf_content, target_profile)
+            review = get_review(resume, target_profile)
 
-            return jsonify({'chatgpt_response': chatgpt_response})
+            return jsonify({'review': review})
 
-    return render_template('index.html', chatgpt_response=chatgpt_response)
+    return render_template('index.html', review=review)
 
 if __name__ == "__main__":
     app.run(debug=True)
