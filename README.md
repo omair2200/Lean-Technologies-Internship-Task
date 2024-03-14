@@ -16,7 +16,7 @@ Before running this application, make sure you have the following:
 2. Navigate to the project directory.
 
 ```
-cd resume-review
+cd resume-reviewer
 ```
 
 3. Install dependencies using pip.
