@@ -45,10 +45,11 @@ python app.py
 2. Access the application in your web browser at `http://127.0.0.1:5000/`.
 
 3. Upload your resume in PDF format.
+4. Enter your Job profile
 
-4. Click the submit button to initiate the review process.
+5. Click the submit button to initiate the review process.
 
-5. The application will use ChatGPT to analyze your resume and provide feedback based on various metrics.
+6. The application will use ChatGPT to analyze your resume and provide feedback based on various metrics.
 
 ## Files
 
