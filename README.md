@@ -1,4 +1,4 @@
-# Resume Review Assistant
+# Resume Review
 
 This Flask application serves as a tool for refining resumes by leveraging OpenAI's ChatGPT model. It allows users to upload PDF resumes and receive detailed feedback on various aspects such as clarity, relevance, impact, professionalism, grammar, and language.
 
@@ -16,7 +16,7 @@ Before running this application, make sure you have the following:
 2. Navigate to the project directory.
 
 ```
-cd resume-review-assistant
+cd resume-review
 ```
 
 3. Install dependencies using pip.
