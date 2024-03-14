@@ -33,10 +33,10 @@ def get_chatgpt_response(pdf_content):
         }
     ],
     )
-    # Access the response content
+  
     response_content = chat_completion.choices[0].message.content
-    formatted_response = response_content.replace('\n', '<br>')  # Convert line breaks to HTML line breaks
-    formatted_response = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', formatted_response)  # Bold enclosed words
+    formatted_response = response_content.replace('\n', '<br>')
+    formatted_response = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', formatted_response) 
     return formatted_response
 
 @app.route('/', methods=['GET', 'POST'])
@@ -58,7 +58,6 @@ def index():
 
             pdf_content = uploaded_file.read()
 
-            # Get ChatGPT response based on the PDF content
             chatgpt_response = get_chatgpt_response(pdf_content)
 
 
