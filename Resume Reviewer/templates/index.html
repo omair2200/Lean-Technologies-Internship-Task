@@ -54,7 +54,7 @@
 
         <div id="response-container" class="response-container">
             <h2 id="response-title" class="response-title">Review:</h2>
-            <p id="response-content" class="response-content">{{ chatgpt_response | safe }}</p>
+            <p id="response-content" class="response-content">{{ review | safe }}</p>
         </div>
     </div>
 
@@ -70,14 +70,14 @@
             })
             .then(response => response.json())
             .then(data => {
-                displayChatGPTResponse(data.chatgpt_response);
+                displayResponse(data.review);
             })
             .catch(error => {
                 console.error('Error:', error);
             });
         });
 
-        function displayChatGPTResponse(response) {
+        function displayResponse(response) {
             const responseContainer = document.getElementById('response-container');
             const responseTitle = document.getElementById('response-title');
             const responseContent = document.getElementById('response-content');
